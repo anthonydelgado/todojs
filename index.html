@@ -17,9 +17,9 @@
 <hr>
 
 <!-- To-Do List -->
-<div id="todos">
+<ul id="todos">
 	
-</div>
+</ul>
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
@@ -37,8 +37,25 @@ $("#addTodo").on("click", function(){
 
 	// Get the Todo "value" from the textbox
 
+	var thingToAdd = 	$('#todo').val();
+	console.log(thingToAdd);
+
+	var myTodoList = $('#todos');
 
 
+	var todoButton = $('<button>');
+	todoButton.text('X');
+	todoButton.addClass('checkbox')
+	todoButton.attr('data-name', thingToAdd);
+
+
+	var todoListItem = $('<li>');
+	todoListItem.addClass(thingToAdd);
+	todoListItem.text(thingToAdd);
+	todoListItem.prepend(todoButton);
+
+
+	myTodoList.prepend(todoListItem);
 	// Create a new todo <p> tag in jquery  to hold a todoitem and give it a unique identifier based on what number it is in the list. 
 	// Then give it an ID of the form: "item-4" or "item-3" or "item-99", where the number is equal to toDoCount.
 	// Then append the todo text to this <p> element.
@@ -77,9 +94,10 @@ $("#addTodo").on("click", function(){
 $(document.body).on('click', '.checkbox', function(){
 
 	// Get the todoNumber of the button from its data attribute.
+	var thingToRemove = $(this).data('name');
+	console.log(thingToRemove);
 
-
-
+	$('.' + thingToRemove).remove();
 	// Empty the specific <p> element that previously held the todo item.
 
 
