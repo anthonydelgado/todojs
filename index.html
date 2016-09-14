@@ -30,12 +30,17 @@
 
 // Create an initial todoCount variable
 
+var todoCount = 0;
+
+
+var todoArray = [];
 
 
 // On Click event associated with the addTodo function
 $("#addTodo").on("click", function(){
 
-	// Get the Todo "value" from the textbox
+	// Get the Todo value from the textbox
+	todoCount++;
 
 	var thingToAdd = 	$('#todo').val();
 	console.log(thingToAdd);
@@ -46,24 +51,24 @@ $("#addTodo").on("click", function(){
 	var todoButton = $('<button>');
 	todoButton.text('X');
 	todoButton.addClass('checkbox')
-	todoButton.attr('data-name', thingToAdd);
+	todoButton.attr('data-name', thingToAdd + '-' + todoCount);
 
 
 	var todoListItem = $('<li>');
-	todoListItem.addClass(thingToAdd);
+	todoListItem.addClass(thingToAdd + '-' + todoCount);
 	todoListItem.text(thingToAdd);
 	todoListItem.prepend(todoButton);
 
 
 	myTodoList.prepend(todoListItem);
-	// Create a new todo <p> tag in jquery  to hold a todoitem and give it a unique identifier based on what number it is in the list. 
+	// Create a new to do <p> tag in jquery  to hold a todoitem and give it a unique identifier based on what number it is in the list.
 	// Then give it an ID of the form: "item-4" or "item-3" or "item-99", where the number is equal to toDoCount.
-	// Then append the todo text to this <p> element.
+	// Then append the to do text to this <p> element.
 
 
 
 	// Create a button with unique identifers based on what number it is in the list. Again use jquery to do this.
-	// Give your button a data attribute called data-todo and a class called "checkbox".
+	// Give your button a data attribute called data-to do and a class called "checkbox".
 	// Lastly append a letter X inside.  
 
 
@@ -81,8 +86,10 @@ $("#addTodo").on("click", function(){
 
 
 
-	// Add to the todoCount
+	// Add to the todoArray
+	todoArray.push(thingToAdd);
 
+	localStorage.setItem('todoArray', JSON.stringify(todoArray));
 
 
 	// Prevent Form from Refreshing (return false)
@@ -104,7 +111,27 @@ $(document.body).on('click', '.checkbox', function(){
 
 });
 
+	console.log(localStorage.getItem("todoArray"));
+
+for (i in todoArray)
+{
+	document.write(todoArray[i]);
+}
+
+
 </script>
 
+<script src="https://www.gstatic.com/firebasejs/3.3.2/firebase.js"></script>
+<script>
+	// Initialize Firebase
+	var config = {
+		apiKey: "AIzaSyCssPInAISDk4K-uksx1CyeEZbPLS71OMk",
+		authDomain: "devlife-32a35.firebaseapp.com",
+		databaseURL: "https://devlife-32a35.firebaseio.com",
+		storageBucket: "",
+		messagingSenderId: "217816168589"
+	};
+	firebase.initializeApp(config);
+</script>
 </body>
 </html>
